@@ -22,10 +22,11 @@ struct ListNotificationsView: View {
 
     var body: some View {
         VStack {
-            Text("ESS Notify")
-                .font(.footnote)
-                .frame(minWidth: 0, maxWidth: .infinity)
-                .padding()
+            Image("ESS_Notify_logo_white")
+                .resizable()
+                .scaledToFit()
+                .frame(minWidth: 0, maxWidth: .infinity, maxHeight: 30)
+                .padding(10)
                 .background(cellColor)
             List{
                 ForEach(0..<noteList.count, id: \.self) { i in
