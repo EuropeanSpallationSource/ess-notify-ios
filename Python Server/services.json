@@ -3,44 +3,70 @@
     {
       "id" : 0,
       "Category" : "Logbook OP",
-      "Color" : "6A6A6A",
+      "Color" : "903373",
       "Subscribers" : [],
-      "token" : "73eac01a94c55b1af899f2b8493fff1cc22f75ac4ca5b55a84454f716cf7b9d6"
+      "token" : "9e43b485a8f9efe240f955b918ec4c73d822e7d07592d2943eef829601458f30"
     },
     {
       "id" : 1,
       "Category" : "Logbook TS2",
-      "Color" : "232652",
+      "Color" : "0099C8",
       "Subscribers" : [],
-      "token" : "845400121be8631b1de707a350055789307ada38ef1cebfcf1344f282f027c40"
+      "token" : "6ef1387663dffa7aaee01294a6033f216fed285222466e34a9f3b5395a59ae27"
     },
     {
       "id" : 2,
       "Category" : "Alarms OP",
-      "Color" : "5B7B98",
+      "Color" : "DA6E00",
       "Subscribers" : [],
-      "token" : "3ed72f4fefd087853cd2768c3386c6eca097ef1d01ea65efacb3e4b0c3cf0221"
+      "token" : "e3f28aff421f0533fcb44053408326c3c400b9eda36f4cdd37ee2ba58469f915"
     },
     {
       "id" : 3,
       "Category" : "TS2 Cryo Alarms",
-      "Color" : "A17E50",
+      "Color" : "7A9800",
       "Subscribers" : [],
-      "token" : "29107dd3d1c79adf911fefaed349c7b0955d63b774b14213f35d9817e2e1855f"
+      "token" : "3b5bb4bf29e754735d508cd7cf99c4e60a3d93f2f92b34cfa58a31c22e94edf6"
     },
     {
       "id" : 4,
       "Category" : "OpenXAL",
-      "Color" : "459480",
+      "Color" : "003366",
       "Subscribers" : [],
-      "token" : "8c7bbf76df8035ea37eda66476dce9dd824635c7eb78383386161f3a33a18c38"
+      "token" : "970938fd763a2a6716ec76913f1ac68e170a986a5bfe5f6517927d5a2cca9a02"
     },
     {
       "id" : 5,
       "Category" : "Test",
       "Color" : "000000",
       "Subscribers" : [],
-      "token" : "8c7bbf76df8035ea37eda66476dce9dd824635c7eb78383386161f3a33a18c38"
+      "token" : "540672ec217edea8346511b3bc18d841fc9d8ce4ebebf8a6d3da72a4fd55bf43"
+    }
+  ],
+  "owners" : [
+    {
+      "id" : 0,
+      "owner" : "Emanuele Laface"
+    },
+    {
+      "id" : 1,
+      "owner" : "Emanuele Laface"
+    },
+    {
+      "id" : 2,
+      "owner" : "Emanuele Laface"
+    },
+    {
+      "id" : 3,
+      "owner" : "Emanuele Laface"
+    },
+    {
+      "id" : 4,
+      "owner" : "Emanuele Laface"
+    },
+    {
+      "id" : 5,
+      "owner" : "Emanuele Laface"
     }
   ]
 }
