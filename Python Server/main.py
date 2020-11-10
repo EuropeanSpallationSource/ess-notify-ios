@@ -227,7 +227,7 @@ def newpush_handler(pushData: dict, request: Request):
         return "Error sending message"
 
 
-@app.get("/push/usersfeeds/{user}/services.json")
+@app.get("/usersfeeds/{user}/services.json")
 def services_for_user(user: str, token: Optional[str] = Header(None)):
     if user in users and users[user]["ESSToken"] == token:
         return_services = []
@@ -246,7 +246,7 @@ def services_for_user(user: str, token: Optional[str] = Header(None)):
         return {"services": []}
 
 
-@app.get("/push/usersfeeds/{user}/notifications.json")
+@app.get("/usersfeeds/{user}/notifications.json")
 def notifications_for_user(user: str, token: Optional[str] = Header(None)):
     if user in users and users[user]["ESSToken"] == token:
         return {user: users[user]["Notifications"]}
