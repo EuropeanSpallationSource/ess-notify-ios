@@ -13,6 +13,7 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
       let tokenParts = deviceToken.map { data in String(format: "%02.2hhx", data) }
         userData.APNToken = tokenParts.joined()
+        setAPNToken(token: userData.ESSToken, apn: userData.APNToken)
     }
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error ) {
       print("Failed to register: \(error)")
@@ -47,7 +48,7 @@ extension NotificationCenter {
 }
 
 func handlePush (pushData: UNNotification) {
-    getNotificationsList()
+    getNotifications(token: userData.ESSToken)
 //    UIApplication.shared.applicationIconBadgeNumber = 15
 //    print(pushData.request.content)
 //    print(pushData.request.content.title)
@@ -58,11 +59,6 @@ func handlePush (pushData: UNNotification) {
 //    print(pushData.request.content.categoryIdentifier)
 //    UIApplication.shared.applicationIconBadgeNumber=0
 //    print(pushData.request.content.userInfo) // All the data are here
-}
-
-func requestGrantForLocalNetwork() {
-    // this is a workaround because it doesn't exists yet an API for this request
-    print(ProcessInfo.processInfo.hostName)
 }
 
 func getNotificationSettings() {

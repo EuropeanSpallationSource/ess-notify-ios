@@ -2,29 +2,28 @@
 //  SingleNotificationView.swift
 //  ESS Notify
 //
-//  Created by Emanuele Laface on 2020-10-25.
+//  Created by Emanuele Laface on 2020-11-18.
 //
 
 import SwiftUI
 import WebKit
 
 struct SingleNotificationView: View {
-    @Binding var listView: Int
+    @Binding var screenSelector: String
     @Binding var noteURL: String
 
     var body: some View {
         VStack {
-            Button(action: {withAnimation(.easeOut(duration: 0.3)) {listView = 0 }}){
+            Button(action: {withAnimation(.easeOut(duration: 0.3)) {self.screenSelector = "notifications" }}){
                 HStack{
                     Image(systemName: "arrowshape.turn.up.backward.fill")
                     Text("Back")
                     Spacer()
                 }
             }.frame(minWidth: 0, maxWidth: .infinity)
-            .padding()
+            .padding(15)
             .background(cellColor)
             .foregroundColor(Color.white)
-            .font(.footnote)
             Spacer()
             if noteURL == "" {
                 Image("ess-logo").opacity(0.5)
@@ -41,11 +40,11 @@ struct SingleNotificationView: View {
 
 struct WebView: UIViewRepresentable {
     let request: URLRequest
-    
+
     func makeUIView(context: Context) -> WKWebView {
         return WKWebView()
     }
-    
+
     func updateUIView(_ uiView: WKWebView, context: Context){
         uiView.load(request)
     }

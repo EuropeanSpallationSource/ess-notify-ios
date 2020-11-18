@@ -2,22 +2,21 @@
 //  ServicesView.swift
 //  ESS Notify
 //
-//  Created by Emanuele Laface on 2020-10-26.
+//  Created by Emanuele Laface on 2020-11-18.
 //
 
 import SwiftUI
 
 struct ServicesView: View {
-    @Binding var listView: Int
-    @State var serviceList = services
+    @Binding var screenSelector: String
+    @State var serviceList = userServices
     @State private var selection = ""
     
     var body: some View {
         VStack {
             Text("Available Notification Services")
-            .font(.footnote)
             .frame(minWidth: 0, maxWidth: .infinity)
-            .padding()
+            .padding(15)
             .background(cellColor)
             CustomTextField(placeholder: Text("Search...").foregroundColor(.gray),
                         text: $selection)
@@ -28,42 +27,42 @@ struct ServicesView: View {
                 .autocapitalization(.none)
             List{
                 ForEach(0..<serviceList.count, id: \.self) { i in
-                    if serviceList[i].Category.lowercased().contains(selection.lowercased()) || selection == ""{
+                    if serviceList[i].category.lowercased().contains(selection.lowercased()) || selection == ""{
                     Button(action: {
-                        serviceList[i].Subscribed.toggle()
-                        services[i].Subscribed.toggle()
+                        serviceList[i].is_subscribed.toggle()
+                        userServices[i].is_subscribed.toggle()
+                        setSubscriptions(token: userData.ESSToken, services: [userServices[i].id: userServices[i].is_subscribed])
                     })
                     {
                         HStack {
-                            if serviceList[i].Subscribed {
+                            if serviceList[i].is_subscribed {
                                 Image(systemName: "checkmark.seal.fill")
                             }
                             else {
                                 Image(systemName: "square")
                             }
                             Spacer()
-                            Text(serviceList[i].Category)
+                            Text(serviceList[i].category)
                             Spacer()
                         }
-                    }.listRowBackground(Color(hex: serviceList[i].Color))
+                    }.listRowBackground(Color(hex: "#"+serviceList[i].color))
                     }
                 }
             }
             Spacer()
-            Button(action: { sendServicesToServer()
-                    withAnimation(.easeOut(duration: 0.3)) {listView = 0 }}){
+            Button(action: {
+                    withAnimation(.easeOut(duration: 0.3)) {self.screenSelector = "notifications" }}){
                 HStack{
                     Image(systemName: "text.badge.checkmark")
                     Text("Save")
                 }
             }.frame(minWidth: 0, maxWidth: .infinity)
-            .padding()
+            .padding(15)
             .background(cellColor)
             .foregroundColor(Color.white)
-            .font(.footnote)
         }.onAppear() {
-            getServicesList()
-            serviceList = services
+            getServices(token: userData.ESSToken)
+            serviceList = userServices
         }
     }
 }

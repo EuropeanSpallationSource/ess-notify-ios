@@ -8,42 +8,28 @@
 import SwiftUI
 
 struct SplashView: View {
-    @State private var isLoaded: Bool = false
+    @State private var screenSelector: String = "splash"
+    @State private var noteURL = ""
     @ObservedObject var notificationCenter: NotificationCenter
-
+    
     var body: some View {
         bgColor.overlay(
             VStack {
-                if self.isLoaded {
-                    if userData.Registered {
-                        NotificationsView()
-                    }
-                    else {
-                        LoginView()
-                    }
-                }
-                else {
+                switch self.screenSelector {
+                case "login":
+                    LoginView(screenSelector: $screenSelector)
+                case "notifications":
+                    NotificationsView(screenSelector: $screenSelector, noteURL: $noteURL)
+                case "singleview":
+                    SingleNotificationView(screenSelector: $screenSelector, noteURL: $noteURL)
+                case "services":
+                    ServicesView(screenSelector: $screenSelector)
+                default:
                     Image("ess-logo")
                 }
             }
         ).onAppear() {
-            DispatchQueue.main.asyncAfter(deadline: .now()) {
-                loadCredentials()
-            }
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                if userData.Registered {
-                    userData.Registered = verifyCredentials(username: userData.ESSUser, password: userData.ESSToken)
-                }
-            }
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                registerForPushNotifications()
-                requestGrantForLocalNetwork()
-            }
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-                withAnimation {
-                    self.isLoaded = true
-                }
+            self.screenSelector = checkCredentials()
             }
         }
     }
-}
