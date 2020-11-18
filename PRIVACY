@@ -1,0 +1,3 @@
+The credentials of the user are validated against the internal ESS LDAP server and are not stored anywhere, neither in ther server nor in the mobile device.
+
+The notifications received by the user are stored on the server and are considered information related to the professional activities and there should never contain personal or sensitive information. 
