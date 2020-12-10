@@ -9,7 +9,6 @@ import SwiftUI
 
 struct SplashView: View {
     @State private var screenSelector: String = "splash"
-    @State private var noteURL = ""
     @ObservedObject var notificationCenter: NotificationCenter
     
     var body: some View {
@@ -19,9 +18,7 @@ struct SplashView: View {
                 case "login":
                     LoginView(screenSelector: $screenSelector)
                 case "notifications":
-                    NotificationsView(screenSelector: $screenSelector, noteURL: $noteURL)
-                case "singleview":
-                    SingleNotificationView(screenSelector: $screenSelector, noteURL: $noteURL)
+                    NotificationsView(screenSelector: $screenSelector)
                 case "services":
                     ServicesView(screenSelector: $screenSelector)
                 default:

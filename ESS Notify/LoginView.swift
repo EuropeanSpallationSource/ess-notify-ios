@@ -24,6 +24,7 @@ struct LoginView: View {
             Spacer()
             Button("Login") {
                 if checkLogin(username: username, password: password) {
+                    invalidToken = false
                     self.screenSelector = "notifications"
                 }
                 else {

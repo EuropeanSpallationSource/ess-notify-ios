@@ -20,7 +20,6 @@
 		85B647CD2565228B00DEC624 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B647CC2565228A00DEC624 /* LoginView.swift */; };
 		85B647D025652B5500DEC624 /* NotificationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B647CF25652B5500DEC624 /* NotificationsView.swift */; };
 		85B647D3256568E900DEC624 /* ServicesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B647D2256568E900DEC624 /* ServicesView.swift */; };
-		85B647D725656BEA00DEC624 /* SingleNotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B647D625656BEA00DEC624 /* SingleNotificationView.swift */; };
 		85EEFF0C25641777001C5C34 /* GlobalDataUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85EEFF0B25641777001C5C34 /* GlobalDataUtilities.swift */; };
 /* End PBXBuildFile section */
 
@@ -40,7 +39,6 @@
 		85B647CC2565228A00DEC624 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		85B647CF25652B5500DEC624 /* NotificationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsView.swift; sourceTree = "<group>"; };
 		85B647D2256568E900DEC624 /* ServicesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServicesView.swift; sourceTree = "<group>"; };
-		85B647D625656BEA00DEC624 /* SingleNotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleNotificationView.swift; sourceTree = "<group>"; };
 		85EEFF0B25641777001C5C34 /* GlobalDataUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalDataUtilities.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -78,7 +76,6 @@
 				851BCA572540AABC00174642 /* ESS Notify.entitlements */,
 				851BCA4725409BAE00174642 /* ESS_NotifyApp.swift */,
 				859217E02542B23B0022127E /* SplashView.swift */,
-				85B647D625656BEA00DEC624 /* SingleNotificationView.swift */,
 				85B647CC2565228A00DEC624 /* LoginView.swift */,
 				85B647CF25652B5500DEC624 /* NotificationsView.swift */,
 				85B647D2256568E900DEC624 /* ServicesView.swift */,
@@ -186,7 +183,6 @@
 				85B647CA25651F9F00DEC624 /* LoginUtilities.swift in Sources */,
 				851BCA4825409BAE00174642 /* ESS_NotifyApp.swift in Sources */,
 				85B647CD2565228B00DEC624 /* LoginView.swift in Sources */,
-				85B647D725656BEA00DEC624 /* SingleNotificationView.swift in Sources */,
 				8535CB82256579D1000ADEB4 /* NotificationsUtilities.swift in Sources */,
 				859217E12542B23B0022127E /* SplashView.swift in Sources */,
 				85B647D025652B5500DEC624 /* NotificationsView.swift in Sources */,
@@ -320,7 +316,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "ESS Notify/ESS Notify.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"ESS Notify/Preview Content\"";
 				DEVELOPMENT_TEAM = W2AG9MPZ43;
 				ENABLE_PREVIEWS = YES;
@@ -330,7 +326,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "eu.ess.ESS-Notify";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -345,7 +341,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "ESS Notify/ESS Notify.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"ESS Notify/Preview Content\"";
 				DEVELOPMENT_TEAM = W2AG9MPZ43;
 				ENABLE_PREVIEWS = YES;
@@ -355,7 +351,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "eu.ess.ESS-Notify";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

@@ -10,13 +10,13 @@ import SwiftUIRefresh
 
 struct NotificationsView: View {
     @Binding var screenSelector: String
-    @Binding var noteURL: String
     @State private var currentTime = Date()
     @State var noteList = userNotifications
     @State private var currentService = "any"
     @State private var isShowing = false
     @State private var readAll = false
     @State private var deleteAll = false
+    @Environment(\.openURL) var openURL
     
     let timer = Timer.publish(every: 1, on: .main, in: .default).autoconnect()
     
@@ -34,8 +34,9 @@ struct NotificationsView: View {
                         withAnimation(.easeOut(duration: 0.3)) {
                             noteList[i].is_read = true
                             setNotifications(token: userData.ESSToken, notifications: [noteList[i].id: "read"])
-                            self.noteURL = noteList[i].url
-                            self.screenSelector = "singleview"
+                            if noteList[i].url != "" {
+                                openURL(URL(string: noteList[i].url) ?? URL(string: "http://www.blank.com/")!)
+                            }
                         }
                     })
                     {
@@ -155,8 +156,11 @@ struct NotificationsView: View {
                     noteList.append(userNotifications[i])
                 }
             }
+            if invalidToken {
+                userData.ESSToken = ""
+                self.screenSelector = "login"
+            }
             currentTime = newTime
-
         }
     }
 }

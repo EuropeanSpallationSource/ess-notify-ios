@@ -114,6 +114,9 @@ func setAPNToken(token: String, apn: String) {
     
     requests(payload: payload, headers: headers, address: apnEndpoint, method: "POST") { data, response in
         result.response = response
+        if response == 401 {
+            invalidToken = true
+        }
     }
 }
 
@@ -131,6 +134,9 @@ func getServices(token: String) {
     requests(payload: payload, headers: headers, address: servicesEndpoint, method: "GET") { data, response in
         if response == 200 {
             userServices = try! JSONDecoder().decode([UserService].self, from: data)
+        }
+        if response == 401 {
+            invalidToken = true
         }
         result.response = response
     }
@@ -153,6 +159,9 @@ func setSubscriptions(token: String, services: [String: Bool]) {
     let headers = ["Accept": "application/json", "Content-Type": "application/json", "Authorization": "Bearer "+token]
     requests(payload: payload, headers: headers, address: servicesEndpoint, method: "PATCH") { data, response in
         result.response = response
+        if response == 401 {
+            invalidToken = true
+        }
     }
 }
 
@@ -167,6 +176,9 @@ func getNotifications(token: String) {
     requests(payload: payload, headers: headers, address: notificationsEndpoint, method: "GET") { data, response in
         if response == 200 {
             userNotifications = try! JSONDecoder().decode([UserNotification].self, from: data)
+        }
+        if response == 401 {
+            invalidToken = true
         }
         result.response = response
     }
@@ -190,6 +202,9 @@ func setNotifications(token: String, notifications: [Int: String]) {
     requests(payload: payload, headers: headers, address: notificationsEndpoint, method: "PATCH") { data, response in
         result.response = response
         result.done = true
+        if response == 401 {
+            invalidToken = true
+        }
     }
     
     var tmpNotifications = [UserNotification]()

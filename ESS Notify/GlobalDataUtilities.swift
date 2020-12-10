@@ -35,3 +35,5 @@ struct UserService: Decodable {
 }
 
 var userServices = [UserService]()
+
+var invalidToken = false
