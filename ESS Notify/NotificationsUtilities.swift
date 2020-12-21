@@ -17,8 +17,20 @@ func getColorNotification(Index: Int) -> String {
             }
         }
     }
-    
     return "#000000"
+}
+
+func getServiceCategory(Index: Int) -> String {
+    for notification in userNotifications {
+        if notification.id == Index {
+            for service in userServices {
+                if service.id == notification.service_id {
+                    return service.category
+                }
+            }
+        }
+    }
+    return ""
 }
 
 func getNotificationsColors() -> [String:String] {
@@ -41,4 +53,10 @@ func bulkAction(service_id: String, action: String) {
         }
     }
     setNotifications(token: userData.ESSToken, notifications: todo)
+}
+
+func convertTimeFormat(timestamp: String) -> String {
+    let date = timestamp.components(separatedBy: "T")[0]
+    let time = timestamp.components(separatedBy: "T")[1].components(separatedBy: ".")[0]
+    return date+" "+time+" UTC"
 }

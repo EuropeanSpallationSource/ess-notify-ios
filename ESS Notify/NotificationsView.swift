@@ -30,6 +30,12 @@ struct NotificationsView: View {
                 .background(cellColor)
             List{
                 ForEach(0..<noteList.count, id: \.self) { i in
+                    let serviceColor = Color(hex: getColorNotification(Index: noteList[i].id))
+                    Text(getServiceCategory(Index: noteList[i].id))
+                        .listRowBackground(serviceColor)
+                        .lineLimit(1)
+                        .frame(maxWidth: .infinity, alignment: .center)
+                        .deleteDisabled(true)
                     Button(action: {
                         withAnimation(.easeOut(duration: 0.3)) {
                             noteList[i].is_read = true
@@ -43,18 +49,23 @@ struct NotificationsView: View {
                         VStack{
                             HStack{
                                 if !noteList[i].is_read {
-                                    HStack {
-                                        Image(systemName: "circlebadge.fill").foregroundColor(Color.red)
-                                        Text("New").font(.footnote)
+                                    Button(action: {
+                                        noteList[i].is_read = true
+                                        setNotifications(token: userData.ESSToken, notifications: [noteList[i].id: "read"])
+                                    }){
+                                        HStack {
+                                            Image(systemName: "circlebadge.fill").foregroundColor(Color.red)
+                                            Text("New").font(.footnote).foregroundColor(Color.white)
+                                        }
                                     }
                                 }
                                 Spacer()
-                                Text(noteList[i].timestamp).font(.footnote)
+                                Text(convertTimeFormat(timestamp: noteList[i].timestamp)).font(.footnote)
                             }
                             Text(noteList[i].title)
                             Text(noteList[i].subtitle)
                         }
-                    }.listRowBackground(Color(hex: getColorNotification(Index: noteList[i].id)))
+                    }.listRowBackground(cellColor)
                     if i < noteList.count-1 {
                         Divider().listRowBackground(bgColor).deleteDisabled(true)
                     }

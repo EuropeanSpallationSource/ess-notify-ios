@@ -12,6 +12,7 @@ struct LoginView: View {
     @State private var username = ""
     @State private var password = ""
     @State private var errorLogin: Bool = false
+    @State private var buttonLogin = "Login"
     
     var body: some View {
         VStack {
@@ -22,14 +23,18 @@ struct LoginView: View {
             Spacer()
             SecureField("ESS Password", text: $password).padding().font(/*@START_MENU_TOKEN@*/.title2/*@END_MENU_TOKEN@*/).multilineTextAlignment(/*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/).background(bgColor).border(cellColor, width: 10).cornerRadius(/*@START_MENU_TOKEN@*/30.0/*@END_MENU_TOKEN@*/).foregroundColor(/*@START_MENU_TOKEN@*/.white/*@END_MENU_TOKEN@*/)
             Spacer()
-            Button("Login") {
-                if checkLogin(username: username, password: password) {
-                    invalidToken = false
-                    self.screenSelector = "notifications"
-                }
-                else {
-                    self.errorLogin = true
-                    self.screenSelector = "login"
+            Button(buttonLogin) {
+                buttonLogin = "Logging in..."
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                    if checkLogin(username: username, password: password) {
+                        invalidToken = false
+                        self.screenSelector = "notifications"
+                    }
+                    else {
+                        buttonLogin = "Login"
+                        self.errorLogin = true
+                        self.screenSelector = "login"
+                    }
                 }
             }
             .frame(minWidth: 0, maxWidth: .infinity)
