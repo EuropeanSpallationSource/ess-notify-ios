@@ -57,6 +57,7 @@ func login(username: String, password: String) -> (String, Int) {
         var response: Int
         var done: Bool
     }
+    let start_time = Date().timeIntervalSince1970
     var result = Result(login: Login(access_token: "", token_type: ""), response: 0, done: false)
     let payload = ["username": username, "password": password]
     let headers = ["Accept": "application/json", "Content-Type": "application/x-www-form-urlencoded"]
@@ -67,7 +68,11 @@ func login(username: String, password: String) -> (String, Int) {
         result.response = response
         result.done = true
     }
-    while !result.done {}
+    while !result.done {
+        if (Date().timeIntervalSince1970-start_time > 5) {
+            return (result.login.access_token, result.response)
+        }
+    }
     return (result.login.access_token, result.response)
 }
 
@@ -84,7 +89,7 @@ func checkUserProfile(token: String) -> Bool {
         var response: Int
         var done: Bool
     }
-    
+    let start_time = Date().timeIntervalSince1970
     var result = Result(user: User(id: 0, username: "", apn_tokens: [], is_active: false, is_admin: false), response: 0, done: false)
     let payload = ""
     let headers = ["Accept": "application/json", "Authorization": "Bearer "+token]
@@ -95,7 +100,11 @@ func checkUserProfile(token: String) -> Bool {
         result.response = response
         result.done = true
     }
-    while !result.done {}
+    while !result.done {
+        if (Date().timeIntervalSince1970-start_time > 5) {
+            return (result.user.is_active)
+        }
+    }
     return (result.user.is_active)
 }
 

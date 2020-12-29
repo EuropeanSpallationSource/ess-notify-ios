@@ -15,6 +15,7 @@
 		858F3E6925483F3500D94395 /* RequestsUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 858F3E6825483F3500D94395 /* RequestsUtilities.swift */; };
 		859217E12542B23B0022127E /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 859217E02542B23B0022127E /* SplashView.swift */; };
 		85A4EC482544C49800982E9A /* PushUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85A4EC472544C49800982E9A /* PushUtilities.swift */; };
+		85ACE05425936D3C0085A7B5 /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85ACE05325936D3C0085A7B5 /* InfoView.swift */; };
 		85B066722555D43B001F35C9 /* SwiftUIRefresh in Frameworks */ = {isa = PBXBuildFile; productRef = 85B066712555D43B001F35C9 /* SwiftUIRefresh */; };
 		85B647CA25651F9F00DEC624 /* LoginUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B647C925651F9F00DEC624 /* LoginUtilities.swift */; };
 		85B647CD2565228B00DEC624 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B647CC2565228A00DEC624 /* LoginView.swift */; };
@@ -35,6 +36,7 @@
 		858F3E6825483F3500D94395 /* RequestsUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestsUtilities.swift; sourceTree = "<group>"; };
 		859217E02542B23B0022127E /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		85A4EC472544C49800982E9A /* PushUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushUtilities.swift; sourceTree = "<group>"; };
+		85ACE05325936D3C0085A7B5 /* InfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
 		85B647C925651F9F00DEC624 /* LoginUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginUtilities.swift; sourceTree = "<group>"; };
 		85B647CC2565228A00DEC624 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		85B647CF25652B5500DEC624 /* NotificationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsView.swift; sourceTree = "<group>"; };
@@ -78,6 +80,7 @@
 				859217E02542B23B0022127E /* SplashView.swift */,
 				85B647CC2565228A00DEC624 /* LoginView.swift */,
 				85B647CF25652B5500DEC624 /* NotificationsView.swift */,
+				85ACE05325936D3C0085A7B5 /* InfoView.swift */,
 				85B647D2256568E900DEC624 /* ServicesView.swift */,
 				85A4EC472544C49800982E9A /* PushUtilities.swift */,
 				853B0D1725422AEB008C4B76 /* GraphicsUtilities.swift */,
@@ -179,6 +182,7 @@
 				85EEFF0C25641777001C5C34 /* GlobalDataUtilities.swift in Sources */,
 				85A4EC482544C49800982E9A /* PushUtilities.swift in Sources */,
 				858F3E6925483F3500D94395 /* RequestsUtilities.swift in Sources */,
+				85ACE05425936D3C0085A7B5 /* InfoView.swift in Sources */,
 				853B0D1825422AEB008C4B76 /* GraphicsUtilities.swift in Sources */,
 				85B647CA25651F9F00DEC624 /* LoginUtilities.swift in Sources */,
 				851BCA4825409BAE00174642 /* ESS_NotifyApp.swift in Sources */,
@@ -316,7 +320,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "ESS Notify/ESS Notify.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2020122101;
+				CURRENT_PROJECT_VERSION = 2020122301;
 				DEVELOPMENT_ASSET_PATHS = "\"ESS Notify/Preview Content\"";
 				DEVELOPMENT_TEAM = W2AG9MPZ43;
 				ENABLE_PREVIEWS = YES;
@@ -341,7 +345,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "ESS Notify/ESS Notify.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2020122101;
+				CURRENT_PROJECT_VERSION = 2020122301;
 				DEVELOPMENT_ASSET_PATHS = "\"ESS Notify/Preview Content\"";
 				DEVELOPMENT_TEAM = W2AG9MPZ43;
 				ENABLE_PREVIEWS = YES;

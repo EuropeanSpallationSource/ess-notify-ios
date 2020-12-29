@@ -16,7 +16,6 @@ struct NotificationsView: View {
     @State private var isShowing = false
     @State private var readAll = false
     @State private var deleteAll = false
-    @Environment(\.openURL) var openURL
     
     let timer = Timer.publish(every: 1, on: .main, in: .default).autoconnect()
     
@@ -41,7 +40,7 @@ struct NotificationsView: View {
                             noteList[i].is_read = true
                             setNotifications(token: userData.ESSToken, notifications: [noteList[i].id: "read"])
                             if noteList[i].url != "" {
-                                openURL(URL(string: noteList[i].url) ?? URL(string: "http://www.blank.com/")!)
+                                UIApplication.shared.open(URL(string: noteList[i].url) ?? URL(string: "http://www.blank.com/")!)
                             }
                         }
                     })
@@ -88,56 +87,61 @@ struct NotificationsView: View {
             }
             Spacer()
             HStack {
-                HStack {
-                    Menu {
-                        Picker(selection: $currentService, label: Text("")) {
-                            ForEach(getNotificationsColors().sorted(by: <), id: \.key) { key, value in
-                                Text(value).tag(key)
-                            }
-                            Text("All").tag("any")
+                Menu {
+                    Picker(selection: $currentService, label: Text("")) {
+                        ForEach(getNotificationsColors().sorted(by: <), id: \.key) { key, value in
+                            Text(value).tag(key)
                         }
-                    } label: {
-                        Label("", systemImage: "line.horizontal.3.decrease.circle.fill")
-                            .padding()
-                            .background(cellColor)
-                            .foregroundColor(/*@START_MENU_TOKEN@*/.white/*@END_MENU_TOKEN@*/)
+                        Text("All").tag("any")
                     }
-                    Button(action: {
-                            if noteList.count > 0 {
-                                readAll = true
-                            }})
-                        {Image(systemName: "envelope.open.fill")}.frame(minWidth: 0, maxWidth: .infinity)
+                } label: {
+                    Label("", systemImage: "line.horizontal.3.decrease.circle.fill")
                         .padding()
                         .background(cellColor)
                         .foregroundColor(/*@START_MENU_TOKEN@*/.white/*@END_MENU_TOKEN@*/)
-                        .alert(isPresented: $readAll) { () -> Alert in
-                            let readAllButton = Alert.Button.default(Text("Mark as Read")) {
-                                bulkAction(service_id: currentService, action: "read")
-                                readAll = false
-                                currentService = "any"
-                            }
-                            return Alert(title: Text("Read All"), message: Text("Do you want to mark the current messages as read?"), primaryButton: readAllButton, secondaryButton: Alert.Button.cancel(Text("Cancel")){ readAll = false })
-                        }
-                    Button(action: {
-                            if noteList.count > 0 {
-                                deleteAll = true
-                            }})
-                        {Image(systemName: "trash.fill")}.frame(minWidth: 0, maxWidth: .infinity)
-                        .padding()
-                        .background(cellColor)
-                        .foregroundColor(/*@START_MENU_TOKEN@*/.white/*@END_MENU_TOKEN@*/)
-                        .alert(isPresented: $deleteAll) { () -> Alert in
-                            let deleteAllButton = Alert.Button.default(Text("Delete All")) {
-                                bulkAction(service_id: currentService, action: "deleted")
-                                deleteAll = false
-                                currentService = "any"
-                            }
-                            return Alert(title: Text("Delete All"), message: Text("Do you want to delete all the current messages?"), primaryButton: deleteAllButton, secondaryButton: Alert.Button.cancel(Text("Cancel")){ deleteAll = false })
-                        }
                 }
+                Button(action: {
+                        if noteList.count > 0 {
+                            readAll = true
+                        }})
+                    {Image(systemName: "envelope.open.fill")}.frame(minWidth: 0, maxWidth: .infinity)
+                    .padding()
+                    .background(cellColor)
+                    .foregroundColor(/*@START_MENU_TOKEN@*/.white/*@END_MENU_TOKEN@*/)
+                    .alert(isPresented: $readAll) { () -> Alert in
+                        let readAllButton = Alert.Button.default(Text("Mark as Read")) {
+                            bulkAction(service_id: currentService, action: "read")
+                            readAll = false
+                            currentService = "any"
+                        }
+                        return Alert(title: Text("Read All"), message: Text("Do you want to mark the current messages as read?"), primaryButton: readAllButton, secondaryButton: Alert.Button.cancel(Text("Cancel")){ readAll = false })
+                    }
+                Button(action: {
+                        if noteList.count > 0 {
+                            deleteAll = true
+                        }})
+                    {Image(systemName: "trash.fill")}.frame(minWidth: 0, maxWidth: .infinity)
+                    .padding()
+                    .background(cellColor)
+                    .foregroundColor(/*@START_MENU_TOKEN@*/.white/*@END_MENU_TOKEN@*/)
+                    .alert(isPresented: $deleteAll) { () -> Alert in
+                        let deleteAllButton = Alert.Button.default(Text("Delete All")) {
+                            bulkAction(service_id: currentService, action: "deleted")
+                            deleteAll = false
+                            currentService = "any"
+                        }
+                        return Alert(title: Text("Delete All"), message: Text("Do you want to delete all the current messages?"), primaryButton: deleteAllButton, secondaryButton: Alert.Button.cancel(Text("Cancel")){ deleteAll = false })
+                    }
                 Button(action: {
                     withAnimation(.easeOut(duration: 0.3)) {self.screenSelector = "services"}
                     }){Image(systemName: "gearshape.2.fill")
+                        }.frame(minWidth: 0, maxWidth: .infinity)
+                .padding()
+                .background(cellColor)
+                .foregroundColor(/*@START_MENU_TOKEN@*/.white/*@END_MENU_TOKEN@*/)
+                Button(action: {
+                    withAnimation(.easeOut(duration: 0.3)) {self.screenSelector = "info"}
+                    }){Image(systemName: "info.circle")
                         }.frame(minWidth: 0, maxWidth: .infinity)
                 .padding()
                 .background(cellColor)

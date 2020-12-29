@@ -21,12 +21,16 @@ struct SplashView: View {
                     NotificationsView(screenSelector: $screenSelector)
                 case "services":
                     ServicesView(screenSelector: $screenSelector)
+                case "info":
+                    InfoView(screenSelector: $screenSelector)
                 default:
                     Image("ess-logo")
                 }
             }
         ).onAppear() {
-            self.screenSelector = checkCredentials()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                    self.screenSelector = checkCredentials()
+                }
             }
         }
     }
