@@ -28,7 +28,6 @@ struct InfoView: View {
             Image("ess-logo").padding(.all, -25.0)
             Spacer()
             Text("ESS Notify "+versionLabelText).frame(maxWidth: .infinity, alignment: .leading).padding()
-
             Spacer()
             Text("""
 iOS Design by Emanuele Laface
