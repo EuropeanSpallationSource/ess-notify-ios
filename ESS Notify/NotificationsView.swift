@@ -35,6 +35,7 @@ struct NotificationsView: View {
                         .lineLimit(1)
                         .frame(maxWidth: .infinity, alignment: .center)
                         .deleteDisabled(true)
+                        .font(Font.headline.weight(.semibold))
                     Button(action: {
                         withAnimation(.easeOut(duration: 0.3)) {
                             noteList[i].is_read = true
@@ -62,7 +63,9 @@ struct NotificationsView: View {
                                 Text(convertTimeFormat(timestamp: noteList[i].timestamp)).font(.footnote)
                             }
                             Text(noteList[i].title)
-                            Text(noteList[i].subtitle)
+                                .frame(maxWidth: .infinity, alignment: .center)
+                                .font(Font.headline.weight(.bold))
+                            Text(noteList[i].subtitle).frame(maxWidth: .infinity, alignment: .leading)
                         }
                     }.listRowBackground(cellColor)
                     if i < noteList.count-1 {
