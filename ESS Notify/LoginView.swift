@@ -23,7 +23,7 @@ struct LoginView: View {
             Spacer()
             SecureField("ESS Password", text: $password).padding().font(/*@START_MENU_TOKEN@*/.title2/*@END_MENU_TOKEN@*/).multilineTextAlignment(/*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/).background(bgColor).border(cellColor, width: 10).cornerRadius(/*@START_MENU_TOKEN@*/30.0/*@END_MENU_TOKEN@*/).foregroundColor(/*@START_MENU_TOKEN@*/.white/*@END_MENU_TOKEN@*/)
             Spacer()
-            Button(buttonLogin) {
+            Button(action: {
                 buttonLogin = "Logging in..."
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                     if checkLogin(username: username, password: password) {
@@ -36,8 +36,10 @@ struct LoginView: View {
                         self.screenSelector = "login"
                     }
                 }
+            })
+            {
+                Text(buttonLogin).frame(minWidth: 0, maxWidth: .infinity)
             }
-            .frame(minWidth: 0, maxWidth: .infinity)
             .padding()
             .background(cellColor).border(cellColor, width: 10)
             .cornerRadius(/*@START_MENU_TOKEN@*/30.0/*@END_MENU_TOKEN@*/)
