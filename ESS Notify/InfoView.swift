@@ -32,7 +32,7 @@ struct InfoView: View {
             Text("""
 iOS Design by Emanuele Laface
 Graphics by Dirk Nordt
-IT Support by Maj-Britt González Engberg
+IT Support by Maj-Britt González Engberg and Mikael Johansson
 Back-end by Benjamin Bertrand
 """).frame(maxWidth: .infinity, alignment: .leading).padding()
 
