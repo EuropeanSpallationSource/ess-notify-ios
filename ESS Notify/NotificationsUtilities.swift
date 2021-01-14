@@ -56,7 +56,12 @@ func bulkAction(service_id: String, action: String) {
 }
 
 func convertTimeFormat(timestamp: String) -> String {
-    let date = timestamp.components(separatedBy: "T")[0]
-    let time = timestamp.components(separatedBy: "T")[1].components(separatedBy: ".")[0]
-    return date+" "+time+" UTC"
+    let inFormat = DateFormatter()
+    inFormat.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ"
+    let inDate = inFormat.date(from: timestamp+"Z")!
+
+    let outFormat = DateFormatter()
+    outFormat.dateFormat = "MMM d, yyyy 'at' HH:mm:ss"
+    let outDate = outFormat.string(from: inDate)
+    return outDate
 }

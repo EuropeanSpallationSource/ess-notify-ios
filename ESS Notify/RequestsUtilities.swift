@@ -185,6 +185,7 @@ func getNotifications(token: String) {
     requests(payload: payload, headers: headers, address: notificationsEndpoint, method: "GET") { data, response in
         if response == 200 {
             userNotifications = try! JSONDecoder().decode([UserNotification].self, from: data)
+            userNotifications = userNotifications.reversed()
         }
         if response == 401 {
             invalidToken = true
