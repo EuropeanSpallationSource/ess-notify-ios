@@ -38,7 +38,7 @@ Back-end by Benjamin Bertrand
 
             Spacer()
             Text("""
-Copyright © 2020
+Copyright © 2021
 European Spallation Source ERIC
 All rights reserved.
 """).frame(maxWidth: .infinity, alignment: .leading).padding()

@@ -37,6 +37,7 @@ func checkCredentials() -> String {
     }
     else {
         if checkUserProfile(token: userData.ESSToken) {
+            invalidToken = false
             return "notifications"
         }
         else {
