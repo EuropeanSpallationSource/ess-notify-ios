@@ -16,6 +16,7 @@ struct NotificationsView: View {
     @State private var isShowing = false
     @State private var readAll = false
     @State private var deleteAll = false
+    @State private var shortView = [Int: Bool]()
     
     let timer = Timer.publish(every: 1, on: .main, in: .default).autoconnect()
     
@@ -30,20 +31,31 @@ struct NotificationsView: View {
             List{
                 ForEach(0..<noteList.count, id: \.self) { i in
                     let serviceColor = Color(hex: getColorNotification(Index: noteList[i].id))
-                    Text(getServiceCategory(Index: noteList[i].id))
-                        .listRowBackground(serviceColor)
-                        .lineLimit(1)
-                        .frame(maxWidth: .infinity, alignment: .center)
-                        .deleteDisabled(true)
-                        .font(Font.headline.weight(.semibold))
-                    Button(action: {
-                        withAnimation(.easeOut(duration: 0.3)) {
-                            noteList[i].is_read = true
-                            setNotifications(token: userData.ESSToken, notifications: [noteList[i].id: "read"])
-                            if noteList[i].url != "" {
-                                UIApplication.shared.open(URL(string: noteList[i].url) ?? URL(string: "http://www.blank.com/")!)
+                    ZStack {
+                        Text(getServiceCategory(Index: noteList[i].id))
+                            .lineLimit(1)
+                            .frame(maxWidth: .infinity, alignment: .center)
+                            .deleteDisabled(true)
+                            .font(Font.headline.weight(.semibold))
+                        if noteList[i].url != "" {
+                            HStack {
+                                Spacer()
+                                Button(action: {
+                                    withAnimation(.easeOut(duration: 0.3)) {
+                                        noteList[i].is_read = true
+                                        setNotifications(token: userData.ESSToken, notifications: [noteList[i].id: "read"])
+                                        UIApplication.shared.open(URL(string: noteList[i].url) ?? URL(string: "http://www.blank.com/")!)
+                                    }
+                                }){
+                                    Image(systemName: "link")
+                                }
                             }
                         }
+                    }.listRowBackground(serviceColor)
+                    Button(action: {
+                        noteList[i].is_read = true
+                        setNotifications(token: userData.ESSToken, notifications: [noteList[i].id: "read"])
+                        shortView[noteList[i].id] = !(shortView[noteList[i].id] ?? false)
                     })
                     {
                         VStack{
@@ -65,7 +77,12 @@ struct NotificationsView: View {
                             Text(noteList[i].title)
                                 .frame(maxWidth: .infinity, alignment: .center)
                                 .font(Font.headline.weight(.bold))
-                            Text(noteList[i].subtitle).frame(maxWidth: .infinity, alignment: .leading)
+                            if shortView[noteList[i].id] ?? false {
+                                Text(noteList[i].subtitle).frame(maxWidth: .infinity, alignment: .leading).lineLimit(2)
+                            }
+                            else{
+                                Text(noteList[i].subtitle).frame(maxWidth: .infinity, alignment: .leading)
+                            }
                         }
                     }.listRowBackground(cellColor)
                     if i < noteList.count-1 {
@@ -171,6 +188,10 @@ struct NotificationsView: View {
                     UIApplication.shared.applicationIconBadgeNumber += 1
                 }
                 if userNotifications[i].service_id == currentService || currentService == "any" {
+                    if shortView[userNotifications[i].id] == nil
+                    {
+                        shortView[userNotifications[i].id] = true
+                    }
                     noteList.append(userNotifications[i])
                 }
             }
