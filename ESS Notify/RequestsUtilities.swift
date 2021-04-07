@@ -9,11 +9,11 @@ import Foundation
 
 // FastAPI Endpoints
 let baseServer = "https://notify.esss.lu.se"
-let loginEndpoint = baseServer+"/api/v1/login"
-let apnEndpoint = baseServer+"/api/v1/users/user/apn-token"
-let profileEndpoint = baseServer+"/api/v1/users/user/profile"
-let servicesEndpoint = baseServer+"/api/v1/users/user/services"
-let notificationsEndpoint = baseServer+"/api/v1/users/user/notifications"
+let loginEndpoint = baseServer+"/api/v2/login"
+let apnEndpoint = baseServer+"/api/v2/users/user/device-token"
+let profileEndpoint = baseServer+"/api/v2/users/user/profile"
+let servicesEndpoint = baseServer+"/api/v2/users/user/services"
+let notificationsEndpoint = baseServer+"/api/v2/users/user/notifications"
 
 func requests<T: Encodable>(payload: T, headers: [String: String], address: String, method: String,  completion: @escaping (Data, Int) -> ())
 {
@@ -80,7 +80,7 @@ func checkUserProfile(token: String) -> Bool {
     struct User: Decodable {
         var id: Int
         var username: String
-        var apn_tokens: [String]
+        var device_tokens: [String]
         var is_active: Bool
         var is_admin: Bool
     }
@@ -90,11 +90,12 @@ func checkUserProfile(token: String) -> Bool {
         var done: Bool
     }
     let start_time = Date().timeIntervalSince1970
-    var result = Result(user: User(id: 0, username: "", apn_tokens: [], is_active: false, is_admin: false), response: 0, done: false)
+    var result = Result(user: User(id: 0, username: "", device_tokens: [], is_active: false, is_admin: false), response: 0, done: false)
     let payload = ""
     let headers = ["Accept": "application/json", "Authorization": "Bearer "+token]
     requests(payload: payload, headers: headers, address: profileEndpoint, method: "GET") { data, response in
         if response == 200 {
+            print(data)
             result.user = try! JSONDecoder().decode(User.self, from: data)
         }
         result.response = response

@@ -17,7 +17,6 @@ struct ServicesView: View {
             Text("Available Notification Services")
             .frame(minWidth: 0, maxWidth: .infinity)
             .padding(15)
-            .background(cellColor)
             CustomTextField(placeholder: Text("Search...").foregroundColor(.gray),
                         text: $selection)
                 .padding(7)
@@ -36,7 +35,11 @@ struct ServicesView: View {
                     {
                         HStack {
                             if serviceList[i].is_subscribed {
-                                Image(systemName: "checkmark.seal.fill")
+                                Image("icon-selected")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(minWidth: 0, maxWidth: 20)
+                                    .foregroundColor(/*@START_MENU_TOKEN@*/.white/*@END_MENU_TOKEN@*/)
                             }
                             else {
                                 Image(systemName: "square")
@@ -53,12 +56,15 @@ struct ServicesView: View {
             Button(action: {
                     withAnimation(.easeOut(duration: 0.3)) {self.screenSelector = "notifications" }}){
                 HStack{
-                    Image(systemName: "text.badge.checkmark")
+                    Image("icon-save")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(minWidth: 0, maxWidth: 30)
+                        .foregroundColor(/*@START_MENU_TOKEN@*/.white/*@END_MENU_TOKEN@*/)
                     Text("Save")
                 }
             }.frame(minWidth: 0, maxWidth: .infinity)
             .padding(15)
-            .background(cellColor)
             .foregroundColor(Color.white)
         }.onAppear() {
             getServices(token: userData.ESSToken)

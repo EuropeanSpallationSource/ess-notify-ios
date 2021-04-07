@@ -23,7 +23,6 @@ struct InfoView: View {
                 .scaledToFit()
                 .frame(minWidth: 0, maxWidth: .infinity, maxHeight: 30)
                 .padding(10)
-                .background(cellColor)
             Spacer()
             Image("ess-logo").padding(.all, -25.0)
             Spacer()
@@ -31,6 +30,7 @@ struct InfoView: View {
             Spacer()
             Text("""
 iOS Design by Emanuele Laface
+Android Design by Georg Weiss
 Graphics by Dirk Nordt
 IT Support by Maj-Britt González Engberg and Mikael Johansson
 Back-end by Benjamin Bertrand
@@ -49,13 +49,16 @@ All rights reserved.
             })
             {
                 HStack{
-                    Image(systemName: "arrowshape.turn.up.backward.fill")
+                    Image("icon-back")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(minWidth: 0, maxWidth: 30)
+                        .foregroundColor(/*@START_MENU_TOKEN@*/.white/*@END_MENU_TOKEN@*/)
                     Text("Back")
                 }
             }
             .frame(minWidth: 0, maxWidth: .infinity)
             .padding()
-            .background(cellColor)
             .foregroundColor(/*@START_MENU_TOKEN@*/.white/*@END_MENU_TOKEN@*/)
         }
     }

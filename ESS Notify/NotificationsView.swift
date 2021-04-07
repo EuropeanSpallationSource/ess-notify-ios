@@ -27,31 +27,29 @@ struct NotificationsView: View {
                 .scaledToFit()
                 .frame(minWidth: 0, maxWidth: .infinity, maxHeight: 30)
                 .padding(10)
-                .background(cellColor)
             List{
                 ForEach(0..<noteList.count, id: \.self) { i in
                     let serviceColor = Color(hex: getColorNotification(Index: noteList[i].id))
                     ZStack {
-                        Text(getServiceCategory(Index: noteList[i].id))
-                            .lineLimit(1)
-                            .frame(maxWidth: .infinity, alignment: .center)
-                            .deleteDisabled(true)
-                            .font(Font.headline.weight(.semibold))
-                        if noteList[i].url != "" {
-                            HStack {
-                                Spacer()
+                        HStack {
+                            Text(getServiceCategory(Index: noteList[i].id))
+                                .lineLimit(1)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .font(.system(size: 20))
+                            Spacer()
+                            if noteList[i].url != "" {
                                 Button(action: {
-                                    withAnimation(.easeOut(duration: 0.3)) {
-                                        noteList[i].is_read = true
-                                        setNotifications(token: userData.ESSToken, notifications: [noteList[i].id: "read"])
-                                        UIApplication.shared.open(URL(string: noteList[i].url) ?? URL(string: "http://www.blank.com/")!)
-                                    }
+                                    noteList[i].is_read = true
+                                    setNotifications(token: userData.ESSToken, notifications: [noteList[i].id: "read"])
+                                    UIApplication.shared.open(URL(string: noteList[i].url) ?? URL(string: "http://www.blank.com/")!)
                                 }){
                                     Image(systemName: "link")
-                                }
+                                }.buttonStyle(PlainButtonStyle())
                             }
                         }
+                        
                     }.listRowBackground(serviceColor)
+                    .deleteDisabled(true)
                     Button(action: {
                         noteList[i].is_read = true
                         setNotifications(token: userData.ESSToken, notifications: [noteList[i].id: "read"])
@@ -59,29 +57,34 @@ struct NotificationsView: View {
                     })
                     {
                         VStack{
-                            HStack{
+                            HStack {
                                 if !noteList[i].is_read {
                                     Button(action: {
                                         noteList[i].is_read = true
                                         setNotifications(token: userData.ESSToken, notifications: [noteList[i].id: "read"])
                                     }){
-                                        HStack {
-                                            Image(systemName: "circlebadge.fill").foregroundColor(Color.red)
-                                            Text("New").font(.footnote).foregroundColor(Color.white)
-                                        }
-                                    }
+                                        Image(systemName: "circlebadge.fill").foregroundColor(Color.red)
+                                    }.buttonStyle(PlainButtonStyle())
                                 }
-                                Spacer()
-                                Text(convertTimeFormat(timestamp: noteList[i].timestamp)).font(.footnote)
+                                Text(noteList[i].title)
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                    .font(Font.system(size: 18).weight(.semibold))
                             }
-                            Text(noteList[i].title)
-                                .frame(maxWidth: .infinity, alignment: .center)
-                                .font(Font.headline.weight(.bold))
+                            HStack {
+                                Spacer()
+                                Text(convertTimeFormat(timestamp: noteList[i].timestamp))
+                                    .font(.footnote)
+                            }
                             if shortView[noteList[i].id] ?? false {
-                                Text(noteList[i].subtitle).frame(maxWidth: .infinity, alignment: .leading).lineLimit(2)
+                                Text(noteList[i].subtitle)
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                    .lineLimit(2)
+                                    .font(.system(size: 16))
                             }
                             else{
-                                Text(noteList[i].subtitle).frame(maxWidth: .infinity, alignment: .leading)
+                                Text(noteList[i].subtitle)
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                    .font(.system(size: 16))
                             }
                         }
                     }.listRowBackground(cellColor)
@@ -115,18 +118,23 @@ struct NotificationsView: View {
                         Text("All").tag("any")
                     }
                 } label: {
-                    Label("", systemImage: "line.horizontal.3.decrease.circle.fill")
-                        .padding()
-                        .background(cellColor)
+                    Image("icon-filter")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(minWidth: 0, maxWidth: 30)
                         .foregroundColor(/*@START_MENU_TOKEN@*/.white/*@END_MENU_TOKEN@*/)
-                }
+                }.padding()
+                Spacer()
                 Button(action: {
                         if noteList.count > 0 {
                             readAll = true
                         }})
-                    {Image(systemName: "envelope.open.fill")}.frame(minWidth: 0, maxWidth: .infinity)
-                    .padding()
-                    .background(cellColor)
+                    {Image("icon-unread")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(minWidth: 0, maxWidth: 30)
+                    .foregroundColor(/*@START_MENU_TOKEN@*/.white/*@END_MENU_TOKEN@*/)
+                }
                     .foregroundColor(/*@START_MENU_TOKEN@*/.white/*@END_MENU_TOKEN@*/)
                     .alert(isPresented: $readAll) { () -> Alert in
                         let readAllButton = Alert.Button.default(Text("Mark as Read")) {
@@ -135,14 +143,18 @@ struct NotificationsView: View {
                             currentService = "any"
                         }
                         return Alert(title: Text("Read All"), message: Text("Do you want to mark the current messages as read?"), primaryButton: readAllButton, secondaryButton: Alert.Button.cancel(Text("Cancel")){ readAll = false })
-                    }
+                    }.padding()
+                Spacer()
                 Button(action: {
                         if noteList.count > 0 {
                             deleteAll = true
                         }})
-                    {Image(systemName: "trash.fill")}.frame(minWidth: 0, maxWidth: .infinity)
-                    .padding()
-                    .background(cellColor)
+                    {Image("icon-trash")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(minWidth: 0, maxWidth: 30)
+                    .foregroundColor(/*@START_MENU_TOKEN@*/.white/*@END_MENU_TOKEN@*/)
+                }
                     .foregroundColor(/*@START_MENU_TOKEN@*/.white/*@END_MENU_TOKEN@*/)
                     .alert(isPresented: $deleteAll) { () -> Alert in
                         let deleteAllButton = Alert.Button.default(Text("Delete All")) {
@@ -151,21 +163,27 @@ struct NotificationsView: View {
                             currentService = "any"
                         }
                         return Alert(title: Text("Delete All"), message: Text("Do you want to delete all the current messages?"), primaryButton: deleteAllButton, secondaryButton: Alert.Button.cancel(Text("Cancel")){ deleteAll = false })
-                    }
+                    }.padding()
+                Spacer()
                 Button(action: {
                     withAnimation(.easeOut(duration: 0.3)) {self.screenSelector = "services"}
-                    }){Image(systemName: "gearshape.2.fill")
-                        }.frame(minWidth: 0, maxWidth: .infinity)
-                .padding()
-                .background(cellColor)
+                    }){Image("icon-settings")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(minWidth: 0, maxWidth: 30)
+                    .foregroundColor(/*@START_MENU_TOKEN@*/.white/*@END_MENU_TOKEN@*/)
+                        }.padding()
                 .foregroundColor(/*@START_MENU_TOKEN@*/.white/*@END_MENU_TOKEN@*/)
+                Spacer()
                 Button(action: {
                     withAnimation(.easeOut(duration: 0.3)) {self.screenSelector = "info"}
-                    }){Image(systemName: "info.circle")
-                        }.frame(minWidth: 0, maxWidth: .infinity)
+                    }){Image("icon-information")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(minWidth: 0, maxWidth: 30)
+                    .foregroundColor(/*@START_MENU_TOKEN@*/.white/*@END_MENU_TOKEN@*/)
+                }.foregroundColor(/*@START_MENU_TOKEN@*/.white/*@END_MENU_TOKEN@*/)
                 .padding()
-                .background(cellColor)
-                .foregroundColor(/*@START_MENU_TOKEN@*/.white/*@END_MENU_TOKEN@*/)
             }
         }
         .onAppear() {
