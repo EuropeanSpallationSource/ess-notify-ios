@@ -8,7 +8,6 @@
 import Foundation
 
 // FastAPI Endpoints
-let baseServer = "https://notify.esss.lu.se"
 let loginEndpoint = baseServer+"/api/v2/login"
 let apnEndpoint = baseServer+"/api/v2/users/user/device-token"
 let profileEndpoint = baseServer+"/api/v2/users/user/profile"

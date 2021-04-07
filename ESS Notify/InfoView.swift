@@ -18,7 +18,7 @@ struct InfoView: View {
         }
     var body: some View {
         VStack {
-            Image("ESS_Notify_logo_white")
+            appLogo
                 .resizable()
                 .scaledToFit()
                 .frame(minWidth: 0, maxWidth: .infinity, maxHeight: 30)

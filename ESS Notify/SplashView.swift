@@ -24,7 +24,7 @@ struct SplashView: View {
                 case "info":
                     InfoView(screenSelector: $screenSelector)
                 default:
-                    Image("ess-logo")
+                    labLogo
                 }
             }
         ).onAppear() {

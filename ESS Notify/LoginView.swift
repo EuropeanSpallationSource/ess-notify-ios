@@ -17,7 +17,7 @@ struct LoginView: View {
     var body: some View {
         VStack {
             Spacer()
-            Image("ess-logo").padding(.all, -25.0)
+            labLogo.padding(.all, -25.0)
             Spacer()
             TextField("ESS Username", text: $username).padding().font(/*@START_MENU_TOKEN@*/.title2/*@END_MENU_TOKEN@*/).multilineTextAlignment(/*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/).background(bgColor).border(cellColor, width: 3).foregroundColor(/*@START_MENU_TOKEN@*/.white/*@END_MENU_TOKEN@*/)
             Spacer()
