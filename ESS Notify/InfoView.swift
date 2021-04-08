@@ -28,20 +28,10 @@ struct InfoView: View {
             Spacer()
             Text("ESS Notify "+versionLabelText).frame(maxWidth: .infinity, alignment: .leading).padding()
             Spacer()
-            Text("""
-iOS Design by Emanuele Laface
-Android Design by Georg Weiss
-Graphics by Dirk Nordt
-IT Support by Maj-Britt González Engberg and Mikael Johansson
-Back-end by Benjamin Bertrand
-""").frame(maxWidth: .infinity, alignment: .leading).padding()
+            Text(credits).frame(maxWidth: .infinity, alignment: .leading).padding()
 
             Spacer()
-            Text("""
-Copyright © 2021
-European Spallation Source ERIC
-All rights reserved.
-""").frame(maxWidth: .infinity, alignment: .leading).padding()
+            Text(copyright).frame(maxWidth: .infinity, alignment: .leading).padding()
             Button(action: {
                 withAnimation(.easeOut(duration: 0.3)) {
                     self.screenSelector = "notifications"
