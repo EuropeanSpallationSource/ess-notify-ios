@@ -57,7 +57,7 @@ struct NotificationsView: View {
                     })
                     {
                         VStack{
-                            HStack {
+                            HStack(alignment: .top) {
                                 if !noteList[i].is_read {
                                     Button(action: {
                                         noteList[i].is_read = true
