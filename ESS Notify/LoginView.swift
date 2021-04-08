@@ -45,7 +45,12 @@ struct LoginView: View {
             .cornerRadius(/*@START_MENU_TOKEN@*/30.0/*@END_MENU_TOKEN@*/)
             .foregroundColor(/*@START_MENU_TOKEN@*/.white/*@END_MENU_TOKEN@*/)
             .alert(isPresented: $errorLogin) {
-                Alert(title: Text("Error"), message: Text("Wrong Username or Password"), dismissButton: .default(Text("Try Again")))
+                if connectionError {
+                    return Alert(title: Text("Network Error"), message: Text("It was not possible to contact the Notify server"), dismissButton: .default(Text("Try Again")))
+                }
+                else {
+                    return Alert(title: Text("Error"), message: Text("Wrong Username or Password"), dismissButton: .default(Text("Try Again")))
+                }
             }
             Spacer()
         }

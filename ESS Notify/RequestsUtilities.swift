@@ -14,6 +14,8 @@ let profileEndpoint = baseServer+"/api/v2/users/user/profile"
 let servicesEndpoint = baseServer+"/api/v2/users/user/services"
 let notificationsEndpoint = baseServer+"/api/v2/users/user/notifications"
 
+var connectionError = false
+
 func requests<T: Encodable>(payload: T, headers: [String: String], address: String, method: String,  completion: @escaping (Data, Int) -> ())
 {
     do {
@@ -60,6 +62,7 @@ func login(username: String, password: String) -> (String, Int) {
     var result = Result(login: Login(access_token: "", token_type: ""), response: 0, done: false)
     let payload = ["username": username, "password": password]
     let headers = ["Accept": "application/json", "Content-Type": "application/x-www-form-urlencoded"]
+    connectionError = false
     requests(payload: payload, headers: headers, address: loginEndpoint, method: "POST") { data, response in
         if response == 200 {
             result.login = try! JSONDecoder().decode(Login.self, from: data)
@@ -69,6 +72,7 @@ func login(username: String, password: String) -> (String, Int) {
     }
     while !result.done {
         if (Date().timeIntervalSince1970-start_time > 5) {
+            connectionError = true
             return (result.login.access_token, result.response)
         }
     }
@@ -92,6 +96,7 @@ func checkUserProfile(token: String) -> Bool {
     var result = Result(user: User(id: 0, username: "", device_tokens: [], is_active: false, is_admin: false), response: 0, done: false)
     let payload = ""
     let headers = ["Accept": "application/json", "Authorization": "Bearer "+token]
+    connectionError = false
     requests(payload: payload, headers: headers, address: profileEndpoint, method: "GET") { data, response in
         if response == 200 {
             print(data)
@@ -102,6 +107,7 @@ func checkUserProfile(token: String) -> Bool {
     }
     while !result.done {
         if (Date().timeIntervalSince1970-start_time > 5) {
+            connectionError = true
             return (result.user.is_active)
         }
     }
