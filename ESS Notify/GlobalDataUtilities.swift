@@ -10,9 +10,10 @@ import Foundation
 struct UserData: Codable {
     var APNToken: String
     var ESSToken: String
+    var server: String
 }
 
-var userData = UserData(APNToken: "", ESSToken: "")
+var userData = UserData(APNToken: "", ESSToken: "", server: "")
 
 struct UserNotification: Identifiable, Decodable {
     var id: Int

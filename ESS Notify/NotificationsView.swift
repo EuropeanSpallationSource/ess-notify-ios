@@ -22,11 +22,6 @@ struct NotificationsView: View {
     
     var body: some View {
         VStack {
-            appLogo
-                .resizable()
-                .scaledToFit()
-                .frame(minWidth: 0, maxWidth: .infinity, maxHeight: 30)
-                .padding(10)
             List{
                 ForEach(0..<noteList.count, id: \.self) { i in
                     let serviceColor = Color(hex: getColorNotification(Index: noteList[i].id))

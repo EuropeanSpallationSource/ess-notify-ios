@@ -13,6 +13,7 @@ func loadCredentials() {
         let url = paths[0].appendingPathComponent("credentials")
         let data = try Data(contentsOf: url)
         userData = try JSONDecoder().decode(UserData.self, from: data)
+        applyCustomization(laboratory: userData.server)
     } catch {
         print("Load failed")
     }
@@ -31,7 +32,6 @@ func saveCredentials() {
 }
 
 func checkCredentials() -> String {
-    loadCredentials()
     if userData.ESSToken == "" {
         return "login"
     }

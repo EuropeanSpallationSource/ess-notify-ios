@@ -120,11 +120,11 @@ func setAPNToken(token: String, apn: String) {
         var done: Bool
     }
     struct APN: Encodable {
-        var apn_token: String
+        var device_token: String
     }
     var result = Result(response: 0, done: false)
 
-    let payload = APN(apn_token: apn)
+    let payload = APN(device_token: apn)
     let headers = ["Accept": "application/json", "Authorization": "Bearer "+token]
     
     requests(payload: payload, headers: headers, address: apnEndpoint, method: "POST") { data, response in

@@ -7,20 +7,20 @@
 
 import SwiftUI
 
-let baseServer = "https://notify.esss.lu.se"
-let labLogo = Image("ess-logo")
-let appLogo = Image("ESS_Notify_logo_white")
-
-let bgColor = Color(red: 0.0703125, green: 0.1328125,blue: 0.171875, opacity: 1.0)
-let cellColor = Color(red: 0.1171875, green: 0.2265625,blue: 0.28125, opacity: 1.0)
-let searchColor = Color(red: 0.8203125, green: 0.8203125, blue: 0.8203125, opacity: 1.0)
+// Default values
+var baseServer = "https://notify.esss.lu.se"
+var labLogo = "ess-logo"
+var bgColor = Color(red: 0.0703125, green: 0.1328125,blue: 0.171875, opacity: 1.0)
+var cellColor = Color(red: 0.1171875, green: 0.2265625,blue: 0.28125, opacity: 1.0)
+var searchColor = Color(red: 0.8203125, green: 0.8203125, blue: 0.8203125, opacity: 1.0)
 
 let credits = """
 iOS Design by Emanuele Laface
 Android Design by Georg Weiss
-Graphics by Dirk Nordt
-IT Support by Maj-Britt González Engberg and Mikael Johansson
 Back-end by Benjamin Bertrand
+Graphics by Dirk Nordt
+Infrastructure by Alessio Curri and Anders Harrisson
+IT Support by Maj-Britt González Engberg and Mikael Johansson
 """
 
 let copyright = """
@@ -28,3 +28,20 @@ Copyright © 2021
 European Spallation Source ERIC
 All rights reserved.
 """
+
+func applyCustomization(laboratory: String) {
+    if laboratory == "" || laboratory == "ess" {
+        baseServer = "https://notify.esss.lu.se"
+        labLogo = "ess-logo"
+        bgColor = Color(red: 0.0703125, green: 0.1328125,blue: 0.171875, opacity: 1.0)
+        cellColor = Color(red: 0.1171875, green: 0.2265625,blue: 0.28125, opacity: 1.0)
+        searchColor = Color(red: 0.8203125, green: 0.8203125, blue: 0.8203125, opacity: 1.0)
+    }
+    if laboratory == "maxiv" {
+        baseServer = "https://notify.maxiv.lu.se"
+        labLogo = "maxiv-logo"
+        bgColor = Color(red: 0.2431372, green: 0.2431372, blue: 0.2431372, opacity: 1.0)
+        cellColor = Color(red: 0.41176, green: 0.6, blue: 00, opacity: 1.0)
+        searchColor = Color(red: 0.9176, green: 0.9176, blue: 0.9176, opacity: 1.0)
+    }
+}

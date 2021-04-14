@@ -18,15 +18,15 @@ struct InfoView: View {
         }
     var body: some View {
         VStack {
-            appLogo
+            
+            Spacer()
+            Image("splash-logo")
                 .resizable()
                 .scaledToFit()
-                .frame(minWidth: 0, maxWidth: .infinity, maxHeight: 30)
+                .frame(minWidth: 0, maxWidth: .infinity, maxHeight: 150)
                 .padding(10)
             Spacer()
-            Image("ess-logo").padding(.all, -25.0)
-            Spacer()
-            Text("ESS Notify "+versionLabelText).frame(maxWidth: .infinity, alignment: .leading).padding()
+            Text("Notify "+versionLabelText).frame(maxWidth: .infinity, alignment: .leading).padding()
             Spacer()
             Text(credits).frame(maxWidth: .infinity, alignment: .leading).padding()
 
