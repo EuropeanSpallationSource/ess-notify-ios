@@ -9,6 +9,12 @@ import SwiftUI
 
 // Default values
 var baseServer = "https://notify.esss.lu.se"
+var loginEndpoint = baseServer+"/api/v2/login"
+var apnEndpoint = baseServer+"/api/v2/users/user/device-token"
+var profileEndpoint = baseServer+"/api/v2/users/user/profile"
+var servicesEndpoint = baseServer+"/api/v2/users/user/services"
+var notificationsEndpoint = baseServer+"/api/v2/users/user/notifications"
+
 var labLogo = "ess-logo"
 var bgColor = Color(red: 0.0703125, green: 0.1328125,blue: 0.171875, opacity: 1.0)
 var cellColor = Color(red: 0.1171875, green: 0.2265625,blue: 0.28125, opacity: 1.0)
@@ -44,4 +50,9 @@ func applyCustomization(laboratory: String) {
         cellColor = Color(red: 0.41176, green: 0.6, blue: 00, opacity: 1.0)
         searchColor = Color(red: 0.9176, green: 0.9176, blue: 0.9176, opacity: 1.0)
     }
+    loginEndpoint = baseServer+"/api/v2/login"
+    apnEndpoint = baseServer+"/api/v2/users/user/device-token"
+    profileEndpoint = baseServer+"/api/v2/users/user/profile"
+    servicesEndpoint = baseServer+"/api/v2/users/user/services"
+    notificationsEndpoint = baseServer+"/api/v2/users/user/notifications"
 }

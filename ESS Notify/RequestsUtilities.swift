@@ -7,12 +7,7 @@
 
 import Foundation
 
-// FastAPI Endpoints
-let loginEndpoint = baseServer+"/api/v2/login"
-let apnEndpoint = baseServer+"/api/v2/users/user/device-token"
-let profileEndpoint = baseServer+"/api/v2/users/user/profile"
-let servicesEndpoint = baseServer+"/api/v2/users/user/services"
-let notificationsEndpoint = baseServer+"/api/v2/users/user/notifications"
+
 
 var connectionError = false
 
