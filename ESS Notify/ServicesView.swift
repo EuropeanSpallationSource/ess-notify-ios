@@ -16,7 +16,7 @@ struct ServicesView: View {
         VStack {
             Text("Available Notification Services")
             .frame(minWidth: 0, maxWidth: .infinity)
-            .padding(15)
+            .padding(5)
             CustomTextField(placeholder: Text("Search...").foregroundColor(.gray),
                         text: $selection)
                 .padding(7)

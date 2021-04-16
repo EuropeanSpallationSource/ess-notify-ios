@@ -22,6 +22,11 @@ struct NotificationsView: View {
     
     var body: some View {
         VStack {
+            Image("splash-logo")
+                .resizable()
+                .scaledToFit()
+                .frame(minHeight: 0, maxHeight: 30)
+                .foregroundColor(/*@START_MENU_TOKEN@*/.white/*@END_MENU_TOKEN@*/)
             List{
                 ForEach(0..<noteList.count, id: \.self) { i in
                     let serviceColor = Color(hex: getColorNotification(Index: noteList[i].id))
@@ -48,7 +53,7 @@ struct NotificationsView: View {
                     Button(action: {
                         noteList[i].is_read = true
                         setNotifications(token: userData.ESSToken, notifications: [noteList[i].id: "read"])
-                        shortView[noteList[i].id] = !(shortView[noteList[i].id] ?? false)
+                        shortView[noteList[i].id] = !(shortView[noteList[i].id] ?? true)
                     })
                     {
                         VStack{
@@ -70,7 +75,7 @@ struct NotificationsView: View {
                                 Text(convertTimeFormat(timestamp: noteList[i].timestamp))
                                     .font(.footnote)
                             }
-                            if shortView[noteList[i].id] ?? false {
+                            if shortView[noteList[i].id] ?? true {
                                 Text(noteList[i].subtitle)
                                     .frame(maxWidth: .infinity, alignment: .leading)
                                     .lineLimit(2)
