@@ -24,9 +24,10 @@ struct NotificationsView: View {
         VStack {
             Image("splash-logo")
                 .resizable()
-                .scaledToFit()
-                .frame(minHeight: 0, maxHeight: 30)
+                .scaleEffect(x: 0.17, y: 1.8)
+                .frame(minHeight: 0, maxHeight: 20)
                 .foregroundColor(/*@START_MENU_TOKEN@*/.white/*@END_MENU_TOKEN@*/)
+                .padding(.top, 8)
             List{
                 ForEach(0..<noteList.count, id: \.self) { i in
                     let serviceColor = Color(hex: getColorNotification(Index: noteList[i].id))
@@ -123,7 +124,7 @@ struct NotificationsView: View {
                         .scaledToFit()
                         .frame(minWidth: 0, maxWidth: 30)
                         .foregroundColor(/*@START_MENU_TOKEN@*/.white/*@END_MENU_TOKEN@*/)
-                }.padding()
+                }.padding(.horizontal)
                 Spacer()
                 Button(action: {
                         if noteList.count > 0 {
@@ -143,7 +144,7 @@ struct NotificationsView: View {
                             currentService = "any"
                         }
                         return Alert(title: Text("Read All"), message: Text("Do you want to mark the current messages as read?"), primaryButton: readAllButton, secondaryButton: Alert.Button.cancel(Text("Cancel")){ readAll = false })
-                    }.padding()
+                    }.padding(.horizontal)
                 Spacer()
                 Button(action: {
                         if noteList.count > 0 {
@@ -163,7 +164,7 @@ struct NotificationsView: View {
                             currentService = "any"
                         }
                         return Alert(title: Text("Delete All"), message: Text("Do you want to delete all the current messages?"), primaryButton: deleteAllButton, secondaryButton: Alert.Button.cancel(Text("Cancel")){ deleteAll = false })
-                    }.padding()
+                    }.padding(.horizontal)
                 Spacer()
                 Button(action: {
                     withAnimation(.easeOut(duration: 0.3)) {self.screenSelector = "services"}
@@ -172,7 +173,7 @@ struct NotificationsView: View {
                     .scaledToFit()
                     .frame(minWidth: 0, maxWidth: 30)
                     .foregroundColor(/*@START_MENU_TOKEN@*/.white/*@END_MENU_TOKEN@*/)
-                        }.padding()
+                        }.padding(.horizontal)
                 .foregroundColor(/*@START_MENU_TOKEN@*/.white/*@END_MENU_TOKEN@*/)
                 Spacer()
                 Button(action: {
@@ -183,8 +184,9 @@ struct NotificationsView: View {
                     .frame(minWidth: 0, maxWidth: 30)
                     .foregroundColor(/*@START_MENU_TOKEN@*/.white/*@END_MENU_TOKEN@*/)
                 }.foregroundColor(/*@START_MENU_TOKEN@*/.white/*@END_MENU_TOKEN@*/)
-                .padding()
+                .padding(.horizontal)
             }
+            .padding(.bottom, 8)
         }
         .onAppear() {
             UITableView.appearance().backgroundColor = .clear

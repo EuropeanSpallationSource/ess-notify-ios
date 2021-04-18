@@ -16,7 +16,7 @@ struct ServicesView: View {
         VStack {
             Text("Available Notification Services")
             .frame(minWidth: 0, maxWidth: .infinity)
-            .padding(5)
+                .padding(.top, 7)
             CustomTextField(placeholder: Text("Search...").foregroundColor(.gray),
                         text: $selection)
                 .padding(7)
@@ -64,7 +64,7 @@ struct ServicesView: View {
                     Text("Save")
                 }
             }.frame(minWidth: 0, maxWidth: .infinity)
-            .padding(15)
+            .padding(.bottom, 10)
             .foregroundColor(Color.white)
         }.onAppear() {
             getServices(token: userData.ESSToken)

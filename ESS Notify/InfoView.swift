@@ -48,7 +48,7 @@ struct InfoView: View {
                 }
             }
             .frame(minWidth: 0, maxWidth: .infinity)
-            .padding()
+            .padding(.bottom, 10)
             .foregroundColor(/*@START_MENU_TOKEN@*/.white/*@END_MENU_TOKEN@*/)
         }
     }
