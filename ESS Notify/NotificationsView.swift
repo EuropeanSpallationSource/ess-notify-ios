@@ -98,7 +98,6 @@ struct NotificationsView: View {
                     }
                     withAnimation {
                         noteList.remove(atOffsets: indexSet)
-                        
                     }
                 }
             }.environment(\.defaultMinListRowHeight, 20)

@@ -33,6 +33,7 @@ struct LoginView: View {
                     .labelsHidden()
                     .toggleStyle(SwitchToggleStyle(tint: Color(red: 0.21, green: 0.24,blue: 0.27, opacity: 1.0)))
                     .onChange(of: labSwitch) { value in
+                        withAnimation(.easeOut(duration: 0.5)) {
                             if value {
                                 colorMAXIVLabel = Color.white
                                 colorESSLabel = Color(red: 0.33, green: 0.37, blue: 0.40, opacity: 1.0)
@@ -48,6 +49,7 @@ struct LoginView: View {
                             screenSelector = "splash"
                             screenSelector = "login"
                         }
+                    }
                     .onAppear() {
                         if userData.server == "" || userData.server == "ess" {
                             labSwitch = false
