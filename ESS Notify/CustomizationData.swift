@@ -13,7 +13,7 @@ var loginEndpoint = baseServer+"/api/v2/login"
 var apnEndpoint = baseServer+"/api/v2/users/user/device-token"
 var profileEndpoint = baseServer+"/api/v2/users/user/profile"
 var servicesEndpoint = baseServer+"/api/v2/users/user/services"
-var notificationsEndpoint = baseServer+"/api/v2/users/user/notifications"
+var notificationsEndpoint = baseServer+"/api/v2/users/user/notifications?limit=50&sort=desc"
 
 var labLogo = "ess-logo"
 var bgColor = Color(red: 0.0703125, green: 0.1328125,blue: 0.171875, opacity: 1.0)
@@ -54,5 +54,5 @@ func applyCustomization(laboratory: String) {
     apnEndpoint = baseServer+"/api/v2/users/user/device-token"
     profileEndpoint = baseServer+"/api/v2/users/user/profile"
     servicesEndpoint = baseServer+"/api/v2/users/user/services"
-    notificationsEndpoint = baseServer+"/api/v2/users/user/notifications"
+    notificationsEndpoint = baseServer+"/api/v2/users/user/notifications?limit=50&sort=desc"
 }
