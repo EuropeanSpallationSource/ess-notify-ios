@@ -16,7 +16,7 @@ struct NotificationsView: View {
     @State private var isShowing = false
     @State private var readAll = false
     @State private var deleteAll = false
-    @State private var shortView = [Int: Bool]()
+    @State private var detailedView: UserNotification? = nil
     
     let timer = Timer.publish(every: 1, on: .main, in: .default).autoconnect()
     
@@ -31,32 +31,32 @@ struct NotificationsView: View {
             List{
                 ForEach(0..<noteList.count, id: \.self) { i in
                     let serviceColor = Color(hex: getColorNotification(Index: noteList[i].id))
-                    ZStack {
-                        HStack {
-                            Text(getServiceCategory(Index: noteList[i].id))
-                                .lineLimit(1)
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                                .font(.system(size: 20))
-                            Spacer()
-                            if noteList[i].url != "" {
-                                Button(action: {
-                                    noteList[i].is_read = true
-                                    setNotifications(token: userData.ESSToken, notifications: [noteList[i].id: "read"])
-                                    UIApplication.shared.open(URL(string: noteList[i].url) ?? URL(string: "http://www.blank.com/")!)
-                                }){
-                                    Image(systemName: "link")
-                                }.buttonStyle(PlainButtonStyle())
-                            }
+                    HStack {
+                        Text(getServiceCategory(Index: noteList[i].id))
+                            .lineLimit(1)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .font(.system(size: 20))
+                            .background(serviceColor)
+                        Spacer()
+                        if noteList[i].url != "" {
+                            Button(action: {
+                                noteList[i].is_read = true
+                                setNotifications(token: userData.ESSToken, notifications: [noteList[i].id: "read"])
+                                UIApplication.shared.open(URL(string: noteList[i].url) ?? URL(string: "http://www.blank.com/")!)
+                            }){
+                                Image(systemName: "link")
+                            }.buttonStyle(PlainButtonStyle())
                         }
-                        
                     }.listRowBackground(serviceColor)
-                    .deleteDisabled(true)
+                     .deleteDisabled(true)
+                    
                     Button(action: {
-                        noteList[i].is_read = true
-                        setNotifications(token: userData.ESSToken, notifications: [noteList[i].id: "read"])
-                        shortView[noteList[i].id] = !(shortView[noteList[i].id] ?? true)
-                    })
-                    {
+                        if !noteList[i].is_read {
+                            noteList[i].is_read = true
+                            setNotifications(token: userData.ESSToken, notifications: [noteList[i].id: "read"])
+                        }
+                        detailedView = noteList[i]
+                    }){
                         VStack{
                             HStack(alignment: .top) {
                                 if !noteList[i].is_read {
@@ -67,32 +67,32 @@ struct NotificationsView: View {
                                         Image(systemName: "circlebadge.fill").foregroundColor(Color.red)
                                     }.buttonStyle(PlainButtonStyle())
                                 }
-                                Text(noteList[i].title)
+                                Text(.init(noteList[i].title))
                                     .frame(maxWidth: .infinity, alignment: .leading)
                                     .font(Font.system(size: 18).weight(.semibold))
+                                    .foregroundColor(.white)
                             }
                             HStack {
                                 Spacer()
                                 Text(convertTimeFormat(timestamp: noteList[i].timestamp))
                                     .font(.footnote)
+                                    .foregroundColor(.white)
                             }
-                            if shortView[noteList[i].id] ?? true {
-                                Text(noteList[i].subtitle)
-                                    .frame(maxWidth: .infinity, alignment: .leading)
-                                    .lineLimit(2)
-                                    .font(.system(size: 16))
-                            }
-                            else{
-                                Text(noteList[i].subtitle)
-                                    .frame(maxWidth: .infinity, alignment: .leading)
-                                    .font(.system(size: 16))
-                            }
+                            Text(.init(noteList[i].subtitle))
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .lineLimit(2)
+                                .font(.system(size: 16))
+                                .foregroundColor(.white)
                         }
-                    }.listRowBackground(cellColor)
-                    if i < noteList.count-1 {
-                        Divider().listRowBackground(bgColor).deleteDisabled(true)
                     }
-                }.onDelete { indexSet in
+                    .listRowBackground(cellColor)
+                    if i < noteList.count-1 {
+                        Divider()
+                            .listRowBackground(bgColor)
+                            .deleteDisabled(true)
+                    }
+                }
+                .onDelete { indexSet in
                     for idx in indexSet {
                         setNotifications(token: userData.ESSToken, notifications: [noteList[idx].id: "deleted"])
                     }
@@ -100,14 +100,46 @@ struct NotificationsView: View {
                         noteList.remove(atOffsets: indexSet)
                     }
                 }
-            }.environment(\.defaultMinListRowHeight, 20)
+            }
+            .environment(\.defaultMinListRowHeight, 20)
             .pullToRefresh(isShowing: $isShowing) {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                        isShowing = false
-                        screenSelector = "splash"
-                        screenSelector = "notifications"
+                    isShowing = false
+                    screenSelector = "splash"
+                    screenSelector = "notifications"
                 }
             }
+            .sheet(item: $detailedView, content: { detailedView in
+                VStack{
+                    HStack{
+                        Spacer()
+                        Text(getServiceCategory(Index: detailedView.id))
+                            .font(.system(size: 20))
+                            .padding(5)
+                        Spacer()
+                    }.frame(minWidth:0, maxWidth: .infinity, minHeight:0, maxHeight: 40, alignment: .topLeading)
+                    .background(Color(hex: getColorNotification(Index: detailedView.id)))
+                    Text(.init(detailedView.title))
+                        .frame(maxWidth: .infinity, alignment: .center)
+                        .font(Font.system(size: 18).weight(.semibold))
+                        .foregroundColor(.white)
+                        .padding(.top, 10)
+                        .padding(.bottom, 10)
+                    Divider()
+                    Text(convertTimeFormat(timestamp: detailedView.timestamp))
+                        .frame(maxWidth: .infinity, alignment: .trailing)
+                        .font(.footnote)
+                        .foregroundColor(.white)
+                        .padding(.trailing, 10)
+                    List {
+                        Text(.init(detailedView.subtitle))
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .font(.system(size: 16))
+                            .foregroundColor(.white)
+                            .listRowBackground(bgColor)
+                    }
+                }.background(bgColor)
+            })
             Spacer()
             HStack {
                 Menu {
@@ -207,10 +239,6 @@ struct NotificationsView: View {
                     UIApplication.shared.applicationIconBadgeNumber += 1
                 }
                 if userNotifications[i].service_id == currentService || currentService == "any" {
-                    if shortView[userNotifications[i].id] == nil
-                    {
-                        shortView[userNotifications[i].id] = true
-                    }
                     noteList.append(userNotifications[i])
                 }
             }

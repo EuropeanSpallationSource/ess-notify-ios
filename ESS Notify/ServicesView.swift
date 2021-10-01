@@ -43,9 +43,11 @@ struct ServicesView: View {
                             }
                             else {
                                 Image(systemName: "square")
+                                    .foregroundColor(.white)
                             }
                             Spacer()
                             Text(serviceList[i].category)
+                                .foregroundColor(.white)
                             Spacer()
                         }
                     }.listRowBackground(Color(hex: "#"+serviceList[i].color))
