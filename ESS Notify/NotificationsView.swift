@@ -17,6 +17,7 @@ struct NotificationsView: View {
     @State private var readAll = false
     @State private var deleteAll = false
     @State private var detailedView: UserNotification? = nil
+    @State private var shareContent = false
     
     let timer = Timer.publish(every: 1, on: .main, in: .default).autoconnect()
     
@@ -38,18 +39,8 @@ struct NotificationsView: View {
                             .font(.system(size: 20))
                             .background(serviceColor)
                         Spacer()
-                        if noteList[i].url != "" {
-                            Button(action: {
-                                noteList[i].is_read = true
-                                setNotifications(token: userData.ESSToken, notifications: [noteList[i].id: "read"])
-                                UIApplication.shared.open(URL(string: noteList[i].url) ?? URL(string: "http://www.blank.com/")!)
-                            }){
-                                Image(systemName: "link")
-                            }.buttonStyle(PlainButtonStyle())
-                        }
                     }.listRowBackground(serviceColor)
                      .deleteDisabled(true)
-                    
                     Button(action: {
                         if !noteList[i].is_read {
                             noteList[i].is_read = true
@@ -68,6 +59,7 @@ struct NotificationsView: View {
                                     }.buttonStyle(PlainButtonStyle())
                                 }
                                 Text(.init(noteList[i].title))
+                                    .fixedSize(horizontal: false, vertical: true)
                                     .frame(maxWidth: .infinity, alignment: .leading)
                                     .font(Font.system(size: 18).weight(.semibold))
                                     .foregroundColor(.white)
@@ -79,6 +71,7 @@ struct NotificationsView: View {
                                     .foregroundColor(.white)
                             }
                             Text(.init(noteList[i].subtitle))
+                                .fixedSize(horizontal: false, vertical: true)
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .lineLimit(2)
                                 .font(.system(size: 16))
@@ -115,11 +108,34 @@ struct NotificationsView: View {
                         Spacer()
                         Text(getServiceCategory(Index: detailedView.id))
                             .font(.system(size: 20))
-                            .padding(5)
+                            .padding(.top, 5)
+                            .padding(.bottom, 5)
+                            .padding(.leading, 30)
                         Spacer()
+                        Button(action: {self.shareContent = true})
+                        {
+                            Image(systemName: "square.and.arrow.up")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(minWidth: 0, maxWidth: 20)
+                                .foregroundColor(/*@START_MENU_TOKEN@*/.white/*@END_MENU_TOKEN@*/)
+                                .padding(.trailing, 10)
+                        }.sheet(isPresented: $shareContent) {
+                            let message = """
+                            \(convertTimeFormat(timestamp: detailedView.timestamp))
+                            Notify Service: \(getServiceCategory(Index: detailedView.id))
+                            Title: \(detailedView.title)
+                            - - - - -
+                            \(detailedView.subtitle)
+                            - - - - -
+                            \(detailedView.url)
+                            """
+                            ShareSheet(activityItems: [message])
+                         }
                     }.frame(minWidth:0, maxWidth: .infinity, minHeight:0, maxHeight: 40, alignment: .topLeading)
                     .background(Color(hex: getColorNotification(Index: detailedView.id)))
                     Text(.init(detailedView.title))
+                        .fixedSize(horizontal: false, vertical: true)
                         .frame(maxWidth: .infinity, alignment: .center)
                         .font(Font.system(size: 18).weight(.semibold))
                         .foregroundColor(.white)
@@ -132,10 +148,24 @@ struct NotificationsView: View {
                         .foregroundColor(.white)
                         .padding(.trailing, 10)
                     List {
-                        Text(.init(detailedView.subtitle))
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .font(.system(size: 16))
-                            .foregroundColor(.white)
+                        VStack {
+                            Text(.init(detailedView.subtitle))
+                                .fixedSize(horizontal: false, vertical: true)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .font(.system(size: 16))
+                                .foregroundColor(.white)
+                            if detailedView.url != "" {
+                                Divider()
+                                Button(action: {
+                                    UIApplication.shared.open(URL(string: detailedView.url) ?? URL(string: "http://www.blank.com/")!)
+                                }){
+                                    Text(.init(detailedView.url))
+                                        .font(.system(size: 16))
+                                }.buttonStyle(PlainButtonStyle())
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                    .font(.system(size: 16))
+                            }
+                        }.frame(maxWidth: .infinity, alignment: .leading)
                             .listRowBackground(bgColor)
                     }
                 }.background(bgColor)
