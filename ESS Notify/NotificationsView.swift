@@ -136,7 +136,7 @@ struct NotificationsView: View {
                     .background(Color(hex: getColorNotification(Index: detailedView.id)))
                     Text(.init(detailedView.title))
                         .fixedSize(horizontal: false, vertical: true)
-                        .frame(maxWidth: .infinity, alignment: .center)
+                        .frame(width: 330, alignment: .center)
                         .font(Font.system(size: 18).weight(.semibold))
                         .foregroundColor(.white)
                         .padding(.top, 10)

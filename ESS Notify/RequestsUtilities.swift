@@ -7,8 +7,6 @@
 
 import Foundation
 
-
-
 var connectionError = false
 
 func requests<T: Encodable>(payload: T, headers: [String: String], address: String, method: String,  completion: @escaping (Data, Int) -> ())
@@ -22,7 +20,7 @@ func requests<T: Encodable>(payload: T, headers: [String: String], address: Stri
                 let payload = payload as! [String : String]
                 var bodyComponents = ""
                 for key in payload.keys {
-                    bodyComponents += key+"="+payload[key]!+"&"
+                    bodyComponents += key+"="+urlEncode(rawText: payload[key]!)+"&"
                 }
                 request.httpBody = bodyComponents.data(using: .utf8)
             }
@@ -239,4 +237,18 @@ func setNotifications(token: String, notifications: [Int: String]) {
         }
     }
     userNotifications = tmpNotifications
+}
+
+func urlEncode(rawText: String) -> String {
+    let encodingTable = ["%": "%25", " ": "%20", "<": "%3C", ">": "%3E",
+                         "#": "%23", "+": "%2B", "{": "%7B", "}": "%7D",
+                         "|": "%7C", "\\": "%5C", "^": "%5E", "~": "%7E",
+                         "[": "%5B", "]": "%5D", "‘": "%60", ";": "%3B",
+                         "/": "%2F", "?": "%3F", ":": "%3A", "@": "%40",
+                         "=": "%3D", "&": "%26", "$": "%24"]
+    var encodedText = rawText
+    for key in encodingTable.keys {
+        encodedText = encodedText.replacingOccurrences(of: key, with: encodingTable[key]!)
+    }
+    return encodedText
 }
